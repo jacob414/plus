@@ -1,0 +1,67 @@
+#!/bin/sh
+# Error codes, see http://tldp.org/LDP/abs/html/exitcodes.html
+
+SCRIPTPATH=`dirname $(readlink $0)`
+
+source "$SCRIPTPATH/plusenv"
+if [ "$#" == 0 ]; then
+    echo "usage: + subcommand <options>"
+    exit 1
+fi
+
+mkdir -p $BASE
+
+function maybe {
+    CMD="$1"
+    shift
+    if $([ -f "$CMD" ]); then
+        $CMD $@
+        exit $?
+    fi
+}
+
+HIDDEN="./.+$1"
+LOCALBIN="./bin/$1"
+PRIOBIN="$MINE/bin/+$1"
+HOMEBIN="$HOME/bin/+$1"
+PYBIN="$VENV/bin/$1"
+NPMBIN="$NPM/.bin/$1"
+
+shift # after shift parameter summary possible to calc
+PARAMS=$(echo "$@" | tr " " "\n")
+
+# 1. Hidden + script
+# RES=trylocal "$HIDDEN" $PARAMS
+maybe $HIDDEN $PARAMS
+RES=$?
+if [ "$RES == 127" ]; then
+    maybe $LOCALBIN $PARAMS
+    RES=$?
+    # exit $RES
+fi
+
+# 2. My priority scripts
+if [ "$RES == 127" ]; then
+    maybe $PRIOBIN $PARAMS ## why not?
+    RES=$?
+fi
+
+# 3. ~ scripts
+if [ "$RES == 127" ]; then
+    maybe $HOMEBIN $PARAMS
+    RES=$?
+fi
+
+# 4. Python installed programs
+if [ "$RES == 127" ]; then
+    maybe $PYBIN $PARAMS ## why not?
+    RES=$?
+fi
+
+# 5. Node.js installed programs
+if [ "$RES == 127" ]; then
+    maybe $NPMBIN $PARAMS ## why?
+    res=$?
+fi
+
+exit $RES

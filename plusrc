@@ -1,0 +1,12 @@
+#!/bin/sh
+BASE=~/opt/plus
+MINE=~/src/oss/plus
+SRC=$MINE
+NODE=$BASE/node
+NPM="$BASE/node/node_modules"
+VENV="$BASE/vgpy"
+NPM_P=$([ -f "$NPM/node_modules" ])
+mkdir -p $VENV
+VPY_P=$([ -f "$VENV/bin/python" ])
+
+export BASE MINE SRC NODE NPM NPM_G VENV VPY_P
