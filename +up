@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if ! $NPM_P; then
+    mkdir -p $NODE
+    cd $NODE
+    npm install
+fi
+
+# Python virtualenv
+if [ ! $VPY_P ]; then
+    cd $VENV
+    python3 -m venv .
+fi
+cd $VENV
+([ ! -f $VENV/requirements.txt ] && ln -s $SRC/requirements.txt .)
+./bin/pip install -r requirements.txt
