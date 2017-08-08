@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-      "webpack": "^2.6.1",
-	  "prettyjson": "^1.2.1"
+    "webpack": "^2.6.1",
+    "prettyjson": "^1.2.1"
   }
 }
