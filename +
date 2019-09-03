@@ -4,6 +4,9 @@
 SCRIPTPATH=`dirname $(readlink $0)`
 
 source "$SCRIPTPATH/plusenv"
+
+exit 0  # during development of 0.5.0
+
 if [ "$#" == 0 ]; then
     echo "usage: + subcommand <options>"
     exit 1
