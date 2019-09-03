@@ -1,0 +1,10 @@
+#!/bin/sh
+# Should stay with a syntax that is both Makefile compatible and
+# shellscript compatible.
+
+# In short this means use ${VARNAME} syntax for variable expansion and no
+# conditional constructs.
+
+SRC=${SCRIPTPATH}
+BASE=~/opt/plus
+PYENV=${BASE}/py
