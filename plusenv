@@ -5,6 +5,18 @@
 # In short this means use ${VARNAME} syntax for variable expansion and no
 # conditional constructs.
 
-SRC=${SCRIPTPATH}
-BASE=~/opt/plus
-PYENV=${BASE}/py
+PLUS_SRC=${SCRIPTPATH}
+PLUS_BASE=~/opt/plus
+PLUS_PYENV=${PLUS_BASE}/py
+PLUS_VPYTHON=${PLUS_PYENV}/bin/python
+PLUS_PIP=${PLUS_PYENV}/bin/pip
+PLUS_VPYTHON_OPTS="--system-site-packages"
+PLUS_HIDDEN="./.+$1"
+PLUS_LOCALBIN="./bin/$1"
+PLUS_HOMEBIN="${PLUS_BASE}/bin/+$1"
+PLUS_PYBIN="${PLUS_PYENV}/bin/$1"
+PLUS_NPM="${PLUS_BASE}/node"
+PLUS_NPMBIN="${PLUS_NPM}/.bin/$1"
+PLUS_RUBY=/usr/bin/ruby
+PLUS_NODE=node
+PLUS_PERL=/usr/bin/perl

@@ -21,7 +21,6 @@ dependencies = (
     'importmagic==0.1.7',
     'invoke==1.2.0',
     'ipdb==0.12',
-    'ipython',
     'jsonpickle==1.1',
     'keyboard==0.13.2',
     'meta',
@@ -33,14 +32,20 @@ dependencies = (
     'redbaron==0.9.2',
     'scp==0.13.2',
     'yapf==0.27.0',
+    'beautifulsoup4>=4.8',
+    'jupyter_core==4.5.0',
+    'jupyter>=1.0.0',
 )  # yapf: disable
 
 if sys.version_info.major < 3:
+    # Python 2 compatibility hack
     dependencies = dependencies + (
         'backports.lzma',
         'backports.shutil_which==3.5.2',
-        'beautifulsoup4==4.7.1',
-    )
+        'ipython>=5.8.0')  # yapf: disable
+else:
+    # Python 3 / 2 conflicting packages
+    dependencies = dependencies + ('ipython>=7.8.0', )
 
 setup(
     name='plus',
@@ -48,4 +53,5 @@ setup(
     description="jacob414's automation toolskit.",
     long_description="jacob414's automation toolskit.",
     install_requires=dependencies,
+    packages=('plus',),
 )  # yapf: disable

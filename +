@@ -5,6 +5,35 @@ SCRIPTPATH=`dirname $(readlink $0)`
 
 source "$SCRIPTPATH/plusenv"
 
+test -f ~/.config/plusrc && source ~/.config/plusrc
+
+if [ ! -f "$PLUS_VPYTHON" ]; then
+    echo "No vpy"
+    cd $PLUS_SRC
+    make
+fi
+
+function maybe {
+    CMD="$1"
+    shift
+    if $([ -f "$CMD" ]); then
+        $CMD $@
+        exit $?
+    fi
+}
+
+FULLCMD="$@"
+
+# 4. Python installed programs
+if [ "$RES == 127" ]; then
+    maybe $PYBIN $PARAMS ## why not?
+    RES=$?
+fi
+
+CMD=`$PLUS_VPYTHON -m plus -p "$FULLCMD"`
+exec $CMD
+exit $?
+
 exit 0  # during development of 0.5.0
 
 if [ "$#" == 0 ]; then
