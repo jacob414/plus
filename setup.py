@@ -11,6 +11,8 @@ dependencies = (
     'Jinja2==2.10',
     'PyMonad==1.3',
     'PyYAML==5.1',
+    'funcy>=1.10.2',
+    'pysistence>=0.4.1',
     'altered_states==1.0.9',
     'arrow==0.12',
     'click==6.7',
