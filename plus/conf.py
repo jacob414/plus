@@ -1,6 +1,7 @@
 # yapf
 
 import os
+import sys
 import glob
 
 from funcy import namespace
@@ -104,8 +105,8 @@ interpreters = {
 }
 
 
-def shortcut_path(name):
-    # type: (str) -> str
+def shortcut_path(name, params):
+    # type: (str, List[str]) -> str
     "Finds the path of a shortcut"
 
     for pat in exp_order_fns():
@@ -116,6 +117,9 @@ def shortcut_path(name):
         if script_path:
             script_path = script_path[0]
             _, script_type = script_path.split('.')
-            return '{} {}'.format(interpreters[script_type], script_path)
+            params = params[0].replace(name, '').strip()
+            cmd = '{} {} {}'.format(interpreters[script_type], script_path,
+                                    params)
+            return cmd
 
     raise ValueError('{} shortcut not found.'.format(name))
