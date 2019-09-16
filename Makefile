@@ -5,12 +5,33 @@ SCRIPTPATH=.
 include plusenv
 SYSPY=$(shell which python3)
 
-all: $(PLUS_PYENV)
+-include ~/.config/plusrc
+
+ifneq ("$(wildcard ~/.config/plusrc)","")
+  $(info using custom directory)
+  include ~/.config/plusrc
+
+  .PHONY: cust-pkg
+  cust-pkg:
+	$(PLUS_PIP) install -e $(PLUS_MINE)/python/
+else
+  $(info not using custom directory)
+  .PHONY: cust-pkg
+  cust-pkg:
+	@echo no
+endif
+
+all: $(PLUS_PYENV) cust-pkg
+
+REAL_PLUS_SRC=$(shell realpath $(PLUS_SRC))/
+
+show:
+	@echo $(REAL_PLUS_SRC)
 
 $(PLUS_PYENV):
-	@echo "make pyenv"
 	$(SYSPY) -m venv $(PLUS_VPYTHON_OPTS) $@
-	$(PLUS_PIP) install -e $(PLUS_SRC)
+	cd ~
+	$(PLUS_PIP) install -e $(REAL_PLUS_SRC)
 	$(PLUS_VPYTHON) -m plus.post_install
 	chmod +x $(PLUS_PYENV)/bin/*
 
