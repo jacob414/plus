@@ -32,7 +32,7 @@ if __name__ == '__main__':
     correct_shebang = '#!{}{}'.format(conf.values.vpython, os.linesep)
     for script in (
             fn for fn in glob.glob(os.path.join(conf.values.pyenv, 'bin', '*'))
-            if 'bin/python' not in fn):
+            if 'bin/python' not in fn and '__pycache__' not in fn):
         with open(script) as fp:
             firstline = fp.readline()
 
