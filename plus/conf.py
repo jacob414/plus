@@ -34,7 +34,7 @@ def expand(env):
     # type: (env) -> None
     "Does expand"
     for key, value in env.items():
-        value = value.replace('$1', '').strip()
+        value = value.replace('$1', '').strip().replace('"', '')
         env[key] = T(value).substitute(def_env)
     return env
 
