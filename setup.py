@@ -15,7 +15,7 @@ dependencies = (
     'pysistence>=0.4.1',
     'altered_states==1.0.9',
     'arrow==0.12',
-    'click==6.7',
+    'click>=7.0',
     'clipboard',
     'datadiff==2.0.0',
     'docker[tls]==3.7.2',
