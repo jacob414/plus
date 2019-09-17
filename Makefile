@@ -23,15 +23,14 @@ endif
 
 all: $(PLUS_PYENV) cust-pkg
 
-REAL_PLUS_SRC=$(shell realpath $(PLUS_SRC))/
+ABS_PLUS_SRC=$(shell realpath $(PLUS_SRC))
 
 show:
-	@echo $(REAL_PLUS_SRC)
+	@echo $(ABS_PLUS_SRC)
 
 $(PLUS_PYENV):
 	$(SYSPY) -m venv $(PLUS_VPYTHON_OPTS) $@
-	cd ~
-	$(PLUS_PIP) install -e $(REAL_PLUS_SRC)
+	$(PLUS_VPYTHON) $(ABS_PLUS_SRC)/setup.py develop
 	$(PLUS_VPYTHON) -m plus.post_install
 	chmod +x $(PLUS_PYENV)/bin/*
 

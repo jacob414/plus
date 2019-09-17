@@ -109,15 +109,16 @@ def shortcut_path(name, params):
     # type: (str, List[str]) -> str
     "Finds the path of a shortcut"
 
+    params = params[0].replace(name, '').strip()
+
     for pat in exp_order_fns():
         shortcut_path = pat(name)
         if os.path.exists(shortcut_path):
-            return shortcut_path
+            return '{} {}'.format(shortcut_path, params)
         script_path = glob.glob(shortcut_path + '.??')
         if script_path:
             script_path = script_path[0]
             _, script_type = script_path.split('.')
-            params = params[0].replace(name, '').strip()
             cmd = '{} {} {}'.format(interpreters[script_type], script_path,
                                     params)
             return cmd
