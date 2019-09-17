@@ -8,20 +8,18 @@ SYSPY=$(shell which python3)
 -include ~/.config/plusrc
 
 ifneq ("$(wildcard ~/.config/plusrc)","")
-  $(info using custom directory)
   include ~/.config/plusrc
 
   .PHONY: cust-pkg
   cust-pkg:
 	$(PLUS_PIP) install -e $(PLUS_MINE)/python/
 else
-  $(info not using custom directory)
   .PHONY: cust-pkg
   cust-pkg:
 	@echo no
 endif
 
-all: $(PLUS_PYENV) cust-pkg
+all: $(PLUS_PYENV) cust-pkg ruby
 
 ABS_PLUS_SRC=$(shell realpath $(PLUS_SRC))
 
@@ -33,6 +31,15 @@ $(PLUS_PYENV):
 	$(PLUS_VPYTHON) $(ABS_PLUS_SRC)/setup.py develop
 	$(PLUS_VPYTHON) -m plus.post_install
 	chmod +x $(PLUS_PYENV)/bin/*
+
+BUNDLER=$(PLUS_RUBY)/bin/
+
+~/.rbenv/versions/2.4.7:
+	rbenv install 2.4.7
+	$(PLUS_RUBY)/bin/gem install bundler
+	$(PLUS_RUBY)/bin/bundler install
+
+ruby: ~/.rbenv/versions/2.4.7
 
 clean:
 	rm -rf $(PLUS_PYENV)

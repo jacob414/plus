@@ -31,7 +31,7 @@ if [ "$RES == 127" ]; then
 fi
 
 CMD=`$PLUS_VPYTHON -m plus -p "$FULLCMD"`
-exec $CMD
+$CMD
 exit $?
 
 exit 0  # during development of 0.5.0

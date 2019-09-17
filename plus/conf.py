@@ -41,12 +41,13 @@ def expand(env):
 
 
 def_env = varsfile(values.defaults_path)
+def_env['HOME'] = os.environ['HOME']
 if os.path.exists(values.mine_path):
     my_env = varsfile(values.mine_path)
 else:
     my_env = {'PLUS_MINE': ''}
 
-def_env = dict(os.environ, **expand(def_env))
+def_env = expand(def_env)
 my_env = expand(my_env)
 values.mine = my_env['PLUS_MINE']
 
@@ -82,6 +83,9 @@ exp_order_fns = lambda: filter(
         # hidden relative to CWD
         './.+{}'.format,
 
+        # from Plus own bin/ -directory
+        '{}/bin/+{}'.format(values.src, '{}').format,
+
         # in a directory named ./bin relative to CDW
         './bin/+{}'.format,
 
@@ -91,6 +95,9 @@ exp_order_fns = lambda: filter(
         # if a 'hidden' directory have been specified, add the bin/
         # direcotry of it
         values.mine and '{}/bin/+{}'.format(values.mine, '{}').format or False,
+
+        # The bin/ directory of the rbenv Ruby environment
+        "{}/bin/{}".format(values.ruby, '{}').format,
 
         # The bin/ directory of the Python virtualenv
         '{}/bin/{}'.format(values.pyenv, '{}').format,
@@ -114,6 +121,10 @@ def shortcut_path(name, params):
     for pat in exp_order_fns():
         shortcut_path = pat(name)
         if os.path.exists(shortcut_path):
+            if 'rbenv' in shortcut_path:
+                return '{}/shims/bundler exec {} {}'.format(
+                    values.rbenv, name, params)
+
             return '{} {}'.format(shortcut_path, params)
         script_path = glob.glob(shortcut_path + '.??')
         if script_path:
