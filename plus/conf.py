@@ -10,6 +10,11 @@ from os.path import expanduser as u
 from string import Template as T
 
 
+class ShortcutNotFound(ValueError):
+    "Marker class for "
+    pass
+
+
 class values(namespace):
     src = os.path.dirname(os.path.dirname(__file__))
     defaults_path = os.path.join(src, 'plusenv')
@@ -122,8 +127,9 @@ def shortcut_path(name, params):
         shortcut_path = pat(name)
         if os.path.exists(shortcut_path):
             if 'rbenv' in shortcut_path:
-                return '{}/shims/bundler exec {} {}'.format(
-                    values.rbenv, name, params)
+                rb_cmd = '{}/versions/2.4.7/bin/bundle exec {} {}'.format(
+                    values.rbenv, shortcut_path, params)
+                return rb_cmd
 
             return '{} {}'.format(shortcut_path, params)
         script_path = glob.glob(shortcut_path + '.??')
@@ -134,4 +140,4 @@ def shortcut_path(name, params):
                                     params)
             return cmd
 
-    raise ValueError('{} shortcut not found.'.format(name))
+    raise ShortcutNotFound(name)
