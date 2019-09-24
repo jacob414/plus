@@ -48,7 +48,10 @@ if sys.version_info.major < 3:
         'ipython>=5.8.0')  # yapf: disable
 else:
     # Python 3 / 2 conflicting packages
-    dependencies = dependencies + ('ipython>=7.8.0', )
+    dependencies = dependencies + (
+        'ipython_genutils>=0.2.0',
+        'ipython>=7.8.0',
+    )
 
 setup(
     name='plus',
