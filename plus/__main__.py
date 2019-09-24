@@ -3,6 +3,7 @@
 import sys
 import os
 from plus import conf
+import errno
 
 
 def cli_line(argvstring, params):
@@ -20,4 +21,5 @@ if __name__ == '__main__':
             cmd = cli_line(shortcut, sys.argv[p_i_ + 1:])
         except conf.ShortcutNotFound as exc:
             print(f'+: shortcut for {str(exc)} not found')
+            sys.exit(errno.ENOENT)
         print(cmd)
