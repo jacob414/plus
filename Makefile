@@ -34,12 +34,19 @@ $(PLUS_PYENV):
 
 BUNDLER=$(PLUS_RUBY)/bin/
 
+$(PLUS_RUBY)/bin/bundler:
+	$(PLUS_RUBY)/bin/gem install bundler
+
+gems: $(PLUS_RUBY)/bin/bundler
+	(cd $(PLUS_SRC) ; $(PLUS_RUBY)/bin/bundler install)
+
+.PHONY: bundler
+bundler: $(PLUS_RUBY)/bin/bundler gems
+
 ~/.rbenv/versions/2.4.7:
 	rbenv install 2.4.7
-	$(PLUS_RUBY)/bin/gem install bundler
-	$(PLUS_RUBY)/bin/bundler install
 
-ruby: ~/.rbenv/versions/2.4.7
+ruby: ~/.rbenv/versions/2.4.7 gems
 
 clean:
 	rm -rf $(PLUS_PYENV)

@@ -118,10 +118,10 @@ interpreters = {
 
 
 def shortcut_path(name, params):
-    # type: (str, List[str]) -> str
+    # type: (str, str) -> str
     "Finds the path of a shortcut"
 
-    params = params[0].replace(name, '').strip()
+    params = params[len(name):].strip()
 
     for pat in exp_order_fns():
         shortcut_path = pat(name)
