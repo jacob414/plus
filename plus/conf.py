@@ -135,7 +135,7 @@ def shortcut_path(name, params):
         script_path = glob.glob(shortcut_path + '.??')
         if script_path:
             script_path = script_path[0]
-            _, script_type = script_path.split('.')
+            _, script_type = [seg for seg in script_path.split('.') if seg]
             cmd = '{} {} {}'.format(interpreters[script_type], script_path,
                                     params)
             return cmd
