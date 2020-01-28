@@ -20,6 +20,15 @@ class values(namespace):
     defaults_path = os.path.join(src, 'plusenv')
     mine_path = u('~/.config/plusrc')
 
+    @property
+    def base(self):
+        # type: () -> None
+        "Does base"
+        return u(os.environ.get('MINE', '~/src/mine/skunkworks'))
+
+    def path(self, *segs: str) -> str:
+        return os.path.join(values.src, *segs)
+
 
 def varsfile(path):
     # type: (path) -> None

@@ -1,6 +1,5 @@
 #!/bin/sh
 # Error codes, see http://tldp.org/LDP/abs/html/exitcodes.html
-
 SCRIPTPATH=`dirname $(readlink $0)`
 
 source "$SCRIPTPATH/plusenv"
@@ -36,7 +35,6 @@ if [ ! "$RES" == 0 ]; then
     echo $CMD
     echo 'failed '$RES
 else
-    echo 'run '$CMD
     $CMD
     RES=$?
 fi

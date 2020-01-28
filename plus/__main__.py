@@ -17,6 +17,11 @@ if __name__ == '__main__':
     if '-p' in sys.argv:
         p_i_ = sys.argv.index('-p')
         shortcut = sys.argv[p_i_ + 1]
+        if shortcut == 'vpy':
+            # Print shell command that activates Python virtual environment
+            script = os.path.join(conf.values.pyenv, 'bin', 'activate')
+            print(f'source {script}')
+            sys.exit(0)
         try:
             cmd = cli_line(shortcut, sys.argv[p_i_ + 1:])
         except conf.ShortcutNotFound as exc:
