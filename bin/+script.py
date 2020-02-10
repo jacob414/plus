@@ -16,7 +16,7 @@ def main(name: str, args: Any) -> None:
     if name.endswith('.py'):
         template_ = 'python-mall.py'
     else:
-        template_ = 'skal-mall.sh'
+        template_ = 'shell-template'
 
     with open(name, 'w') as fp:
         fp.write(template.expand(template_, sname=name, args=args))
