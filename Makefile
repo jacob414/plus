@@ -5,19 +5,10 @@ SCRIPTPATH=.
 include plusenv
 SYSPY=$(shell which python3)
 
+include ~/.config/plusrc
+
+# ifneq ("$(wildcard ~/.config/plusrc)","")
 -include ~/.config/plusrc
-
-ifneq ("$(wildcard ~/.config/plusrc)","")
-  include ~/.config/plusrc
-
-  .PHONY: cust-pkg
-  cust-pkg:
-	$(PLUS_PIP) install -e $(PLUS_MINE)/python/
-else
-  .PHONY: cust-pkg
-  cust-pkg:
-	@echo no
-endif
 
 all: $(PLUS_PYENV) cust-pkg ruby
 

@@ -20,13 +20,21 @@ def main(name: str, args: Any) -> None:
     else:
         template_ = 'shell-template'
 
-    with open(name, 'w') as fp:
-        fp.write(template.expand(template_, sname=name, args=args))
-        os.chmod(name, 0o744)
-        plus.edit(name)
+    priobin, priopath = conf.values.path('bin/'), conf.values.path(
+        f'bin/{name}')
+    source = template.expand(template_, sname=name, args=args)
 
-    priobin = conf.values.path('bin/')
-    priopath = conf.values.path(f'bin/{name}')
+    try:
+        import ipdb
+        ipdb.set_trace()
+        pass
+        with open(name, 'w') as fp:
+            fp.write(source)
+            os.chmod(name, 0o744)
+            plus.edit(name)
+    except:
+        pass
+
     if name.endswith('.py') and os.path.exists(priopath):
         bare, _ = name.split('.py')
         nopy = conf.values.path(f'bin/{bare}')
