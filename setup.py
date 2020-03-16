@@ -13,7 +13,7 @@ dependencies = (
     'PyYAML',
     'funcy',
     'pysistence',
-    'altereds==1.0.9',
+    'altered_states',
     'arrow',
     'click',
     'crayons',
