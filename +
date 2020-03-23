@@ -30,9 +30,9 @@ if [ "$RES == 127" ]; then
 fi
 
 CMD=`$PLUS_VPYTHON -m plus -p "$FULLCMD"`
+$CMD
 RES=$?
 if [ ! "$RES" == 0 ]; then
-    echo $CMD
     echo 'failed '$RES
 else
     $CMD

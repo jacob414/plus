@@ -6,9 +6,7 @@ from plus import conf
 from typing import Any
 import os
 import subprocess
-from micropy import testing
-from funcy import flow
-
+import plus
 
 @click.command()
 @click.argument("name", nargs=1)
@@ -20,31 +18,17 @@ def main(name: str, args: Any) -> None:
     else:
         template_ = 'shell-template'
 
-    priobin, priopath = conf.values.path('bin/'), conf.values.path(
-        f'bin/{name}')
     source = template.expand(template_, sname=name, args=args)
+    actual_path = os.path.join(os.path.abspath('./'), name)
 
-    try:
-        import ipdb
-        ipdb.set_trace()
-        pass
-        with open(name, 'w') as fp:
-            fp.write(source)
-            os.chmod(name, 0o744)
-            plus.edit(name)
-    except:
-        pass
+    # here
+    with open(actual_path, 'w') as fp:
+        fp.write(source)
+        os.chmod(name, 0o744)
 
-    if name.endswith('.py') and os.path.exists(priopath):
-        bare, _ = name.split('.py')
-        nopy = conf.values.path(f'bin/{bare}')
-        with plus.cd(conf.values.base), flow.suppress(OSError):
-            os.symlink(priopath, nopy)
-    else:
-        template_ = 'skal-mall.sh'
+    plus.edit(name)
 
 
 if __name__ == '__main__':
-    import ipdb
-    testing.hook_uncatched(ipdb.post_mortem)
+    plus.monitored()
     main()

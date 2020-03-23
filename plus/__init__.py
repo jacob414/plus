@@ -1,5 +1,6 @@
 import os
 import subprocess
+import ipdb
 
 from contextlib import contextmanager
 
@@ -15,3 +16,8 @@ def cd(path):
         yield
     finally:
         os.chdir(old_dir)
+
+def monitored() -> None:
+    "Does monitored"
+    from micropy import testing
+    testing.hook_uncatched(ipdb.post_mortem)
