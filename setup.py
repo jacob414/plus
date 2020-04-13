@@ -8,7 +8,7 @@ except ImportError:
     from distutils.core import setup
 
 dependencies = (
-    'Jinja',
+    'Jinja2',
     'PyMonad',
     'PyYAML',
     'funcy',
@@ -23,7 +23,7 @@ dependencies = (
     'hypothesis',
     'importmagic',
     'invoke',
-    'ipdb2',
+    'ipdb',
     'jsonpickle',
     'keyboard',
     'meta',
@@ -33,7 +33,7 @@ dependencies = (
     'psutil',
     'pytest',
     'redbaron',
-    'scp2',
+    'scp',
     'yapf',
     'beautifulsoup4',
     'jupyter_core',
