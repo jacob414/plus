@@ -72,7 +72,6 @@ def expand(name_, **expansions):
     with open(path) as fp:
         if path.endswith('.py'):
             raw = preprocess_python(fp)
-            pass
         else:
             raw = fp.read()
         try:

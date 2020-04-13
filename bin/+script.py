@@ -19,14 +19,14 @@ def main(name: str, args: Any) -> None:
         template_ = 'shell-template'
 
     source = template.expand(template_, sname=name, args=args)
-    actual_path = os.path.join(os.path.abspath('./'), name)
+    path = os.path.join(os.path.dirname(__file__), name)
 
     # here
-    with open(actual_path, 'w') as fp:
+    with open(path, 'w') as fp:
         fp.write(source)
-        os.chmod(name, 0o744)
+        os.chmod(path, 0o744)
 
-    plus.edit(name)
+    plus.edit(path)
 
 
 if __name__ == '__main__':

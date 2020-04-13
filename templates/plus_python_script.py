@@ -13,7 +13,7 @@ from functools import partial
 @click.pass_context
 def _xc_name_xc_(ctx):
     "Docstring for {sname}"
-    print(f"Implement the {{name}} python script.")
+    print(f"Implement the {{sname}} python script.")
     
 if __name__ == '__main__':
     _xc_name_xc_()
