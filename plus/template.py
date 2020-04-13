@@ -6,6 +6,8 @@ from jinja2 import Template
 from builtins import str
 from datetime import datetime
 
+from typing import IO
+
 import re
 import itertools
 from functools import reduce
@@ -42,8 +44,8 @@ def myfind(name):
     elif len(hits) > 1:
         raise Exception("Template {name} name ambigous".format(**locals()))
 
-def preprocess_python(fp):
-    # type: (str) -> str
+
+def preprocess_python(fp: IO) -> str:
     "Does preprocess_python"
     alt = ''
     exp = ''
@@ -51,7 +53,9 @@ def preprocess_python(fp):
 
     lines = fp.readlines()
 
-    symreplaced = ''.join(line for line in lines if '# skipline' not in line)
+    symreplaced = ''.join(
+        line.replace('_xo_', '{{').replace('_xc_', '}}') for line in lines
+        if '# skipline' not in line)
     for line in symreplaced.split(os.linesep):
         if '#%' in line:
             tagline = line.strip().replace('#%', '{%') + ' %}'

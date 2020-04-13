@@ -11,9 +11,9 @@ from functools import partial
 
 @click.command()
 @click.pass_context
-def _xc_name_xc_(ctx):
-    "Docstring for {sname}"
-    print(f"Implement the {{sname}} python script.")
+def _xo_verb_xc_(ctx):
+    "Docstring for {{verb}}"
+    print(f"Implement the {{verb}} python script.")
     
 if __name__ == '__main__':
-    _xc_name_xc_()
+    _xo_verb_xc_()
