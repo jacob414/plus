@@ -19,5 +19,5 @@ def cd(path):
 
 def monitored() -> None:
     "Does monitored"
-    from micropy import testing
+    from kingston import testing
     testing.hook_uncatched(ipdb.post_mortem)
