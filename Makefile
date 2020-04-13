@@ -4,22 +4,22 @@
 SCRIPTPATH=.
 include plusenv
 SYSPY=$(shell which python3)
+ABS_PLUS_SRC=$(shell realpath $(PLUS_SRC))
 
 include ~/.config/plusrc
-
-# ifneq ("$(wildcard ~/.config/plusrc)","")
 -include ~/.config/plusrc
 
-all: $(PLUS_PYENV) cust-pkg ruby
+all: $(PLUS_PYENV) ruby
 
-ABS_PLUS_SRC=$(shell realpath $(PLUS_SRC))
+cust-pkg:
+	$(PLUS_VPYTHON) $(ABS_PLUS_SRC)/setup.py develop
 
 show:
 	@echo $(ABS_PLUS_SRC)
 
 $(PLUS_PYENV):
 	$(SYSPY) -m venv $(PLUS_VPYTHON_OPTS) $@
-	$(PLUS_VPYTHON) $(ABS_PLUS_SRC)/setup.py develop
+	make cust-pkg
 	$(PLUS_VPYTHON) -m plus.post_install
 	chmod +x $(PLUS_PYENV)/bin/*
 
