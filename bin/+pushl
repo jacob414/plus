@@ -1,0 +1,7 @@
+#!/bin/bash
+NL="\n"
+if [[ $uname -eq "Darwin" ]]; then
+    NL=$'\\\n'
+fi
+TEXT=`echo "$1" | sed -e "s|RET|${NL}|"`
+(echo '0a'; echo "$TEXT"; echo '.' ; echo 'wq') | ed $2 1>2 &>/dev/null
