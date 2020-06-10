@@ -2,11 +2,17 @@ import os
 import subprocess
 import ipdb
 
+from . import conf
+
+
 from contextlib import contextmanager
 
-def edit(path) -> None:
+def edit(path, line:int = -1) -> None:
     "Does edit"
-    return subprocess.Popen(['emacsclient', path], stdout=subprocess.PIPE)
+    if line > -1:
+        subprocess.Popen(['emacsclient', path, f"+{line}:1"], stdout=subprocess.PIPE)
+    else:
+        subprocess.Popen(['emacsclient', path], stdout=subprocess.PIPE)
 
 @contextmanager
 def cd(path):

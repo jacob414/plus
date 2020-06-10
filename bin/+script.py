@@ -19,6 +19,7 @@ def main(name: str, args: Any) -> None:
         verb = name.replace('.py', '').replace('+', '')
     else:
         template_ = 'shell-template'
+        verb= name.replace('+', '')
 
     source = template.expand(template_, name=name, verb=verb, args=args)
     path = os.path.join(os.path.dirname(__file__), name)
