@@ -115,6 +115,10 @@ exp_order_fns = lambda: filter(
 
         # The bin/ directory of the Python virtualenv
         '{}/bin/{}'.format(values.pyenv, '{}').format,
+
+        # Own source tree's bin/ -directory
+        '{}/bin/{}'.format(values.mine, '{}').format,
+
     )
 )  # yapf: disable
 
