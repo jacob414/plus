@@ -32,7 +32,7 @@ fi
 CMD=`$PLUS_VPYTHON -m plus -p "$FULLCMD"`
 RES=$?
 if [ ! "$RES" == 0 ]; then
-    echo 'failed '$RES
+    echo $CMD
 else
     $CMD
     RES=$?
