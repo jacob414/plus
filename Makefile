@@ -12,7 +12,8 @@ include ~/.config/plusrc
 all: $(PLUS_PYENV) ruby
 
 cust-pkg:
-	$(PLUS_VPYTHON) $(ABS_PLUS_SRC)/setup.py develop
+	cd $(PLUS_SRC)
+	$(PLUS_PIP) -e install .
 
 show:
 	@echo $(ABS_PLUS_SRC)
