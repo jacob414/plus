@@ -38,6 +38,7 @@ dependencies = (
     'beautifulsoup4',
     'jupyter_core',
     'jupyter',
+    'beautifulsoup4',
 )  # yapf: disable
 
 if sys.version_info.major < 3:
