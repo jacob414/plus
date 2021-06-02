@@ -26,8 +26,15 @@ class values(namespace):
         "Does base"
         return u(os.environ.get('MINE', '~/src/mine/skunkworks'))
 
+    @property
+    def mine(self) -> str:
+        return u(os.environ.get('MINE', '~/src/mine/skunkworks'))
+
     def path(self, *segs: str) -> str:
         return os.path.join(values.src, *segs)
+
+def mypath(*segs:str) -> str:
+    return os.path.join(values.mine, *segs)
 
 
 def varsfile(path):
